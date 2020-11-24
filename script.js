@@ -110,6 +110,7 @@ selectedFile.onchange = function(){
                             
                             if(table[Object.keys(table)[b]][tableheadings[i]] !== undefined) {
                                 currencytotal = table[Object.keys(table)[b]][tableheadings[i]] + currencytotal
+                                currencytotal = Math.round(currencytotal * 100)/100
                                 
                             }
                         }
