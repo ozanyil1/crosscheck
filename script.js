@@ -75,7 +75,7 @@ selectedFile.onchange = function(){
 
         //burası değerleri dolduruyor
         for (i=0;i<Object.keys(table).length;i++){
-            if (Object.keys(table)[i]>7000&&Object.keys(table)[i]<8000)
+            if (Object.keys(table)[i]>=7000&&Object.keys(table)[i]<8000)
             {let tablerow = document.createElement("tr")
             let td1 = document.createElement("td")
             td1.innerHTML =  Object.keys(table)[i]
@@ -105,7 +105,7 @@ selectedFile.onchange = function(){
             if (i===-1){
                 td.innerHTML = "Genel Toplam"} else {
                     for(b=0;b<Object.keys(table).length;b++){
-                        if (Object.keys(table)[b]>6999&&Object.keys(table)[b]<8000){
+                        if (Object.keys(table)[b]>=7000&&Object.keys(table)[b]<8000){
                             //console.log(table[Object.keys(table)[b]][tableheadings[i]])
                             
                             if(table[Object.keys(table)[b]][tableheadings[i]] !== undefined) {
