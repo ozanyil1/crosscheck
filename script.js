@@ -52,7 +52,7 @@ selectedFile.onchange = function(){
             lines.push(lineelement);
         }
         
-        //console.log(Object.keys(table))
+        
         let tableheadings = []
         let tablerows = Object.keys(table)
         
@@ -94,7 +94,7 @@ selectedFile.onchange = function(){
 
             document.getElementById("7000table").appendChild(tablerow);}
         }
-        console.log(table)
+        
         //burası genel toplam çıkartıyor
 
         let lastrow = document.createElement("tr")
@@ -109,7 +109,7 @@ selectedFile.onchange = function(){
             else {
                 for(b=0;b<Object.keys(table).length;b++){
                     if (Object.keys(table)[b]>=7000&&Object.keys(table)[b]<8000){
-                            //console.log(table[Object.keys(table)[b]][tableheadings[i]])
+                            
                             
                         if(table[Object.keys(table)[b]][tableheadings[i]] !== undefined) {
                             currencytotal = table[Object.keys(table)[b]][tableheadings[i]] + currencytotal
@@ -121,7 +121,7 @@ selectedFile.onchange = function(){
                     td.innerHTML = currencytotal
                     td.style.fontWeight = "bold"
                 }
-            console.log(table["7000toplam"])
+            
             lastrow.appendChild(td);
             
         }
@@ -139,7 +139,7 @@ selectedFile.onchange = function(){
         for (b=0;b<3;b++){
             let tablerow = document.createElement("tr")
             let td1 = document.createElement("td")
-                if(b===0){td1.innerHTML =  "700000"} else if(b===1){td1.innerHTML =  "1013"} else if(b===2){td1.innerHTML =  "Natro Net"}
+                if(b===0){td1.innerHTML =  "700000"} else if(b===1){td1.innerHTML =  "1013"} else if(b===2){td1.innerHTML =  "Natro Net";table["natronet"] = {}}
                 tablerow.appendChild(td1);
             for (i=0;i<tableheadings.length;i++){
                 
@@ -156,27 +156,65 @@ selectedFile.onchange = function(){
                 } 
                 else if(b===2){
                     let currencynet = 0;
-                    table["natronet"] = {}
+                    
                     if(table["1013"] != undefined){
                     if(table["1013"][tableheadings[i]] === undefined&&table["700000"][tableheadings[i]] === undefined) 
                         {td.innerHTML = 0;
                          currencynet = 0;
                         }
                     else if(table["1013"][tableheadings[i]] === undefined&&table["700000"][tableheadings[i]] != undefined){
-                        td.innerHTML = table["700000"][tableheadings[i]]
-                        currencynet = table["700000"][tableheadings[i]]}
-                    else if(table["1013"][tableheadings[i]] != undefined&&table["700000"][tableheadings[i]] === undefined){console.log("sadece 700bin undefined")}
-                    else if (table["1013"][tableheadings[i]] != undefined&&table["700000"][tableheadings[i]] != undefined){console.log("ikisi de defined")}
+                        currencynet = table["700000"][tableheadings[i]]
+                        currencynet = Math.round(currencynet * 100)/100
+                        td.innerHTML = currencynet
+                        }
+                    else if(table["1013"][tableheadings[i]] != undefined&&table["700000"][tableheadings[i]] === undefined){
+                        currencynet = table["1013"][tableheadings[i]];
+                        currencynet = Math.round(currencynet * 100)/100
+                        td.innerHTML = currencynet
+                        }
+                    else if (table["1013"][tableheadings[i]] != undefined&&table["700000"][tableheadings[i]] != undefined){
+                        currencynet = table["700000"][tableheadings[i]] - table["1013"][tableheadings[i]];
+                        currencynet = Math.round(currencynet * 100) /100
+                        td.innerHTML = currencynet
+                        }
 
                     } else {
                         if (table["700000"][tableheadings[i]] === undefined) {td.innerHTML = ""} else {
-                            td.innerHTML =  table[700000][tableheadings[i]];
-                            currencynet =  table[700000][tableheadings[i]]}
+                            currencynet =  table[700000][tableheadings[i]]
+                            currencynet = Math.round(currencynet * 100) / 100
+                            td.innerHTML =  currencynet;
+                            }
                     }
+                    table["natronet"][tableheadings[i]] = currencynet
                 }
+                
                 tablerow.appendChild(td);
             }
             document.getElementById("natrotable").appendChild(tablerow);
+        }
+
+        for(b=0;b<2;b++){
+            let tablerow = document.createElement("tr");
+            let td1 = document.createElement("td");
+            if(b===0){
+                
+                for (i=0;i<tableheadings.length;i++){
+                let newheading = document.createElement("th");
+                newheading.innerHTML = tableheadings[i];
+                document.getElementById("firstrow3").appendChild(newheading)}} 
+            else if(b===1) {
+                let fark = 0;
+                td1.innerHTML = "fark";
+                tablerow.appendChild(td1);
+                for (i=0;i<tableheadings.length;i++){
+                fark = table["7000toplam"][tableheadings[i]] - table["natronet"][tableheadings[i]];
+                let td = document.createElement("td")
+                td.innerHTML = fark
+                tablerow.appendChild(td)
+            }
+                
+            }
+            document.getElementById("natrofark").appendChild(tablerow)
         }
 
 
