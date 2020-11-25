@@ -103,21 +103,25 @@ selectedFile.onchange = function(){
             let td = document.createElement("td")
             let currencytotal = 0
             if (i===-1){
-                td.innerHTML = "Genel Toplam"} else {
-                    for(b=0;b<Object.keys(table).length;b++){
-                        if (Object.keys(table)[b]>=7000&&Object.keys(table)[b]<8000){
+                td.innerHTML = "Genel Toplam"
+                table["7000toplam"] = {}}
+                 
+            else {
+                for(b=0;b<Object.keys(table).length;b++){
+                    if (Object.keys(table)[b]>=7000&&Object.keys(table)[b]<8000){
                             //console.log(table[Object.keys(table)[b]][tableheadings[i]])
                             
-                            if(table[Object.keys(table)[b]][tableheadings[i]] !== undefined) {
-                                currencytotal = table[Object.keys(table)[b]][tableheadings[i]] + currencytotal
-                                currencytotal = Math.round(currencytotal * 100)/100
-                                
+                        if(table[Object.keys(table)[b]][tableheadings[i]] !== undefined) {
+                            currencytotal = table[Object.keys(table)[b]][tableheadings[i]] + currencytotal
+                            currencytotal = Math.round(currencytotal * 100)/100
+                            table["7000toplam"][tableheadings[i]] = currencytotal
                             }
                         }
                     }
                     td.innerHTML = currencytotal
+                    td.style.fontWeight = "bold"
                 }
-            
+            console.log(table["7000toplam"])
             lastrow.appendChild(td);
             
         }
@@ -150,15 +154,24 @@ selectedFile.onchange = function(){
                         if (table["1013"][tableheadings[i]] === undefined) {td.innerHTML = ""} else {
                         td.innerHTML =  table["1013"][tableheadings[i]]}}
                 } 
-                else if(b===2){if(table["1013"] != undefined){
-                    if(table["1013"][tableheadings[i]] === undefined&&table["700000"][tableheadings[i]] === undefined) {console.log("ikisi de undefined")}
-                    else if(table["1013"][tableheadings[i]] === undefined&&table["700000"][tableheadings[i]] != undefined){console.log("sadece 1013 undefined")}
+                else if(b===2){
+                    let currencynet = 0;
+                    table["natronet"] = {}
+                    if(table["1013"] != undefined){
+                    if(table["1013"][tableheadings[i]] === undefined&&table["700000"][tableheadings[i]] === undefined) 
+                        {td.innerHTML = 0;
+                         currencynet = 0;
+                        }
+                    else if(table["1013"][tableheadings[i]] === undefined&&table["700000"][tableheadings[i]] != undefined){
+                        td.innerHTML = table["700000"][tableheadings[i]]
+                        currencynet = table["700000"][tableheadings[i]]}
                     else if(table["1013"][tableheadings[i]] != undefined&&table["700000"][tableheadings[i]] === undefined){console.log("sadece 700bin undefined")}
                     else if (table["1013"][tableheadings[i]] != undefined&&table["700000"][tableheadings[i]] != undefined){console.log("ikisi de defined")}
 
                     } else {
                         if (table["700000"][tableheadings[i]] === undefined) {td.innerHTML = ""} else {
-                            td.innerHTML =  table[700000][tableheadings[i]]}
+                            td.innerHTML =  table[700000][tableheadings[i]];
+                            currencynet =  table[700000][tableheadings[i]]}
                     }
                 }
                 tablerow.appendChild(td);
