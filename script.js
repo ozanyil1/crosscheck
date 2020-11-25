@@ -1,6 +1,7 @@
 const selectedFile = document.getElementById('avatar');
 
 selectedFile.onchange = function(){
+    document.getElementById("natrotables").style.display = "block"
     const reader = new FileReader();
     reader.onload = function(){ 
         const lines = reader.result.split("\n");
@@ -222,4 +223,16 @@ selectedFile.onchange = function(){
     reader.readAsText(selectedFile.files[0]);
     
     
+}
+
+function ftdButton() {
+    document.getElementById("natrotables").style.display = "none";
+    document.getElementById("ftdtables").style.display = "block";
+    document.getElementById("ftdfark").scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+function natroButton() {
+    document.getElementById("ftdtables").style.display = "none";
+    document.getElementById("natrotables").style.display = "block";
+    document.getElementById("natrofark").scrollIntoView({behavior:"smooth",block:"center"})
 }
