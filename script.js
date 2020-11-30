@@ -55,168 +55,481 @@ selectedFile.onchange = function(){
         
         
         let tableheadings = []
-        let tablerows = Object.keys(table)
-        
-        //burası headingsleri yapıyor
+        let natromus = []
+        let hesaplar = ["1003","1004","1005","1006","1007","1008","1009","1012","1013","1014","10000","700000"]
+        let butunhesaplar = Object.keys(table)
+        let sentetik = ["GAUUSD","GAUTRY","XAUTRY","XAGTRY","EURCNH","CNHTRY","SGDCNH","CNHHKD","XAUTHB","GBPHKD","XAUEUR","TRYRUB","XAUCNH","XAUHKD"]
+
+
+
+        //burası headingsleri ve natromus yapıyor
         for (i=0;i<Object.keys(table).length;i++){
             
+            if(butunhesaplar[i]>6999&&butunhesaplar[i]<8000){natromus.push(butunhesaplar[i])
 
+            }
             let symbols = Object.keys(table[Object.keys(table)[i]]);
             
             for (b=0;b<symbols.length;b++){
                 if(tableheadings.indexOf(symbols[b]) === -1) {
                     tableheadings.push(symbols[b]);
-                    let newheading = document.createElement("th");
-                    newheading.innerHTML = symbols[b]
-                    document.getElementById("firstrow").appendChild(newheading)
+                    
 
                 }
             }
         }
 
-        //burası değerleri dolduruyor
-        for (i=0;i<Object.keys(table).length;i++){
-            if (Object.keys(table)[i]>=7000&&Object.keys(table)[i]<8000)
-            {let tablerow = document.createElement("tr")
-            let td1 = document.createElement("td")
-            td1.innerHTML =  Object.keys(table)[i]
-            tablerow.appendChild(td1);
+        
+        //burası 7000lere sembolleri ekliyor
+        for(i=0;i<natromus.length;i++){
+            for(b=0;b<tableheadings.length;b++){
+                if(table[natromus[i]][tableheadings[b]] === undefined) {table[natromus[i]][tableheadings[b]] = 0} 
+            }
+        }
 
-            for (b=0;b<tableheadings.length;b++){
-            if(table[Object.keys(table)[i]][tableheadings[b]] === undefined){
-                let td = document.createElement("td");
-                td.innerHTML = ""
-                tablerow.appendChild(td)
+        //burası diğer hesaplara sembolleri veya hesapları ekliyor
+        for(i=0;i<hesaplar.length;i++){
+            if (table[hesaplar[i]] === undefined) {table[hesaplar[i]] = {}}
+            for(b=0;b<tableheadings.length;b++){
+                if(table[hesaplar[i]][tableheadings[b]] === undefined) {table[hesaplar[i]][tableheadings[b]] = 0} 
+            }
+        }
+
+        //burası natromustoplam objesi oluşturuyor
+        table["natromustoplam"] = {}
+        for(b=0;b<tableheadings.length;b++){
+            table["natromustoplam"][tableheadings[b]] = 0
+            for(a=0;a<natromus.length;a++){
+                let toplam = table["natromustoplam"][tableheadings[b]] + table[natromus[a]][tableheadings[b]];
+                toplam = Math.round(toplam * 100) / 100
+                table["natromustoplam"][tableheadings[b]] = toplam;
+            }
+        }
+
+        //burası natro net objesi oluşturuyor yani 700000 eksi 1013
+        table["natronet"] = {}
+        for(b=0;b<tableheadings.length;b++){
+            let net = table["700000"][tableheadings[b]] - table["1013"][tableheadings[b]]
+            net = Math.round(net * 100) / 100
+            table["natronet"][tableheadings[b]] = net;
+        }
+
+        //natro fark objesi oluşturuyor
+        table["natrofark"] = {}
+        for(b=0;b<tableheadings.length;b++){
+            let fark = table["natronet"][tableheadings[b]] - table["natromustoplam"][tableheadings[b]]
+            fark = Math.round(fark * 100) / 100
+            table["natrofark"][tableheadings[b]] = fark;
+        }
+
+        //ftdmustoplam objesi oluşturuyor
+        table["ftdmustoplam"] = {}
+        for(b=0;b<tableheadings.length;b++){
+            let toplam = table["700000"][tableheadings[b]] + table["10000"][tableheadings[b]]
+            toplam = Math.round(toplam * 100) / 100
+            table["ftdmustoplam"][tableheadings[b]] = toplam;
+        }
+
+        //sentetik objesi oluşturuyor
+        table["sentetik"] = {}
+        for(b=0;b<tableheadings.length;b++){
+            if(sentetik.indexOf(tableheadings[b])<0)
+            {
+                table["sentetik"][tableheadings[b]] = table["1004"][tableheadings[b]] 
             } else {
-                let td = document.createElement("td");
-                td.innerHTML = table[Object.keys(table)[i]][tableheadings[b]];
-                tablerow.appendChild(td)
-            }}
-
-            document.getElementById("7000table").appendChild(tablerow);}
+                table["sentetik"][tableheadings[b]] = 0
+            }
         }
-        
-        //burası genel toplam çıkartıyor
+        //ftd net objesi oluşturuyor
+        table["ftdnet"] = {}
+        for(b=0;b<tableheadings.length;b++){
+            let net = table["1006"][tableheadings[b]] + table["1007"][tableheadings[b]] + table["1008"][tableheadings[b]] + table["1009"][tableheadings[b]] + table["1012"][tableheadings[b]] + table["sentetik"][tableheadings[b]] + table["1005"][tableheadings[b]] - table["1003"][tableheadings[b]]
+            net = Math.round(net * 100) / 100
+            table["ftdnet"][tableheadings[b]] = net;
+        }
 
-        let lastrow = document.createElement("tr")
-        for (i=-1;i<tableheadings.length;i++){
+
+
+        //ftd fark objesi oluşturuyor
+        table["ftdfark"] = {}
+        for(b=0;b<tableheadings.length;b++){
+            let fark = table["ftdnet"][tableheadings[b]] - table["ftdmustoplam"][tableheadings[b]]
+            fark = Math.round(fark * 100) / 100
+            table["ftdfark"][tableheadings[b]] = fark;
+        }
+
+        console.log(table)
+
+        
+        //ilk tablo yeni
+        for(i=0;i<3;i++){
             
-            let td = document.createElement("td")
-            let currencytotal = 0
-            if (i===-1){
-                td.innerHTML = "Genel Toplam"
-                table["7000toplam"] = {}}
-                 
-            else {
-                for(b=0;b<Object.keys(table).length;b++){
-                    if (Object.keys(table)[b]>=7000&&Object.keys(table)[b]<8000){
-                            
-                            
-                        if(table[Object.keys(table)[b]][tableheadings[i]] !== undefined) {
-                            currencytotal = table[Object.keys(table)[b]][tableheadings[i]] + currencytotal
-                            currencytotal = Math.round(currencytotal * 100)/100
-                            table["7000toplam"][tableheadings[i]] = currencytotal
-                            }
-                        }
-                    }
-                    td.innerHTML = currencytotal
-                    td.style.fontWeight = "bold"
+            if(i===0){//7000müs heading kısmı
+                let tablerow = document.createElement("tr");
+                for(b=0;b<tableheadings.length;b++){
+                    let th = document.createElement("th")
+                    th.innerHTML = tableheadings[b];
+                    document.getElementById("firstrow").appendChild(th)
                 }
-            
-            lastrow.appendChild(td);
-            
-        }
-        document.getElementById("7000table").appendChild(lastrow);
+                document.getElementById("7000table").appendChild(tablerow)
+            }
 
-        //burası natrotablonun paritelerini yazıyor
-        for (i=0;i<tableheadings.length;i++){
-            let newheading = document.createElement("th");
-            newheading.innerHTML = tableheadings[i];
-            document.getElementById("firstrow2").appendChild(newheading)
-        }
-        
-        
-        //burası natro tablonun kalan 3 rowunu yapıyor
-        for (b=0;b<3;b++){
-            let tablerow = document.createElement("tr")
-            let td1 = document.createElement("td")
-                if(b===0){td1.innerHTML =  "700000"} else if(b===1){td1.innerHTML =  "1013"} else if(b===2){td1.innerHTML =  "Natro Net";table["natronet"] = {}}
-                tablerow.appendChild(td1);
-            for (i=0;i<tableheadings.length;i++){
-                
-                let td = document.createElement("td")
-                if(b===0){
-                    
-                    if (table["700000"][tableheadings[i]] === undefined) {td.innerHTML = ""} else {
-                    td.innerHTML =  table[700000][tableheadings[i]]}
-                } 
-                else if(b===1){
-                    if(table["1013"] != undefined){
-                        if (table["1013"][tableheadings[i]] === undefined) {td.innerHTML = ""} else {
-                        td.innerHTML =  table["1013"][tableheadings[i]]}}
-                } 
-                else if(b===2){
-                    let currencynet = 0;
-                    
-                    if(table["1013"] != undefined){
-                    if(table["1013"][tableheadings[i]] === undefined&&table["700000"][tableheadings[i]] === undefined) 
-                        {td.innerHTML = 0;
-                         currencynet = 0;
-                        }
-                    else if(table["1013"][tableheadings[i]] === undefined&&table["700000"][tableheadings[i]] != undefined){
-                        currencynet = table["700000"][tableheadings[i]]
-                        currencynet = Math.round(currencynet * 100)/100
-                        td.innerHTML = currencynet
-                        }
-                    else if(table["1013"][tableheadings[i]] != undefined&&table["700000"][tableheadings[i]] === undefined){
-                        currencynet = table["1013"][tableheadings[i]];
-                        currencynet = Math.round(currencynet * 100)/100
-                        td.innerHTML = currencynet
-                        }
-                    else if (table["1013"][tableheadings[i]] != undefined&&table["700000"][tableheadings[i]] != undefined){
-                        currencynet = table["700000"][tableheadings[i]] - table["1013"][tableheadings[i]];
-                        currencynet = Math.round(currencynet * 100) /100
-                        td.innerHTML = currencynet
-                        }
-
-                    } else {
-                        if (table["700000"][tableheadings[i]] === undefined) {td.innerHTML = ""} else {
-                            currencynet =  table[700000][tableheadings[i]]
-                            currencynet = Math.round(currencynet * 100) / 100
-                            td.innerHTML =  currencynet;
-                            }
+            if(i===1){//müşteri kısmı
+                for(a=0;a<natromus.length;a++){
+                    let tablerow = document.createElement("tr");
+                    let td1 = document.createElement("td")
+                    td1.innerHTML = natromus[a];
+                    tablerow.appendChild(td1);
+                    for(b=0;b<tableheadings.length;b++){
+                        let td = document.createElement("td");
+                        td.innerHTML = table[natromus[a]][tableheadings[b]]
+                        tablerow.appendChild(td)
                     }
-                    table["natronet"][tableheadings[i]] = currencynet
+                    document.getElementById("7000table").appendChild(tablerow)
                 }
-                
-                tablerow.appendChild(td);
             }
-            document.getElementById("natrotable").appendChild(tablerow);
+
+            if(i===2){//burası ilk  tablo genel toplam yani natromustoplam
+                let tablerow = document.createElement("tr");
+                let th1 = document.createElement("th")
+                th1.innerHTML = "Genel Toplam";
+                tablerow.appendChild(th1);
+                
+                for(b=0;b<tableheadings.length;b++){
+                    let th = document.createElement("th");
+                    th.innerHTML = table["natromustoplam"][tableheadings[b]];
+                    tablerow.appendChild(th);
+                }
+
+                document.getElementById("7000table").appendChild(tablerow);
+            }
+            
         }
 
-        for(b=0;b<2;b++){
-            let tablerow = document.createElement("tr");
-            let td1 = document.createElement("td");
-            if(b===0){
-                
-                for (i=0;i<tableheadings.length;i++){
-                let newheading = document.createElement("th");
-                newheading.innerHTML = tableheadings[i];
-                document.getElementById("firstrow3").appendChild(newheading)}} 
-            else if(b===1) {
-                let fark = 0;
-                td1.innerHTML = "fark";
+
+
+        //burası ikinci tablo
+        for (i=0;i<4;i++){
+            if(i===0){ //burası ikinci tablo headingler
+                let tablerow = document.createElement("tr");
+                for(b=0;b<tableheadings.length;b++){
+                    let th = document.createElement("th")
+                    th.innerHTML = tableheadings[b];
+                    document.getElementById("firstrow2").appendChild(th)
+                }
+                document.getElementById("natrotable").appendChild(tablerow)
+            }
+            if(i===1){//ikinci tablo 700000 hesap
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "700000"
                 tablerow.appendChild(td1);
-                for (i=0;i<tableheadings.length;i++){
-                fark = table["7000toplam"][tableheadings[i]] - table["natronet"][tableheadings[i]];
-                let td = document.createElement("td")
-                td.innerHTML = fark
-                tablerow.appendChild(td)
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["700000"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("natrotable").appendChild(tablerow);   
             }
-                
+            if(i===2){//ikinci tablo 1013 book hesap
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "1013 BOOK"
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["1013"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("natrotable").appendChild(tablerow);   
             }
-            document.getElementById("natrofark").appendChild(tablerow)
+            if(i===3){ //ikinci tanblo natro net yani son row
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "Natro Net"
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["natronet"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("natrotable").appendChild(tablerow);   
+            }
         }
+        
+
+        
+        
+        for(i=0;i<2;i++){//burası natro fark
+            if(i===0){ 
+                let tablerow = document.createElement("tr");
+                for(b=0;b<tableheadings.length;b++){
+                    let th = document.createElement("th")
+                    th.innerHTML = tableheadings[b];
+                    document.getElementById("firstrow3").appendChild(th)
+                }
+                document.getElementById("natrofark").appendChild(tablerow)
+            }
+            if(i===1){//üçüncü tablo 2. satır
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = " "
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["natrofark"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("natrofark").appendChild(tablerow);   
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //burada ftd müş yapıyor
+        for(i=0;i<4;i++){
+            if(i===0){ 
+                let tablerow = document.createElement("tr");
+                for(b=0;b<tableheadings.length;b++){
+                    let th = document.createElement("th")
+                    th.innerHTML = tableheadings[b];
+                    document.getElementById("firstrow4").appendChild(th)
+                }
+                document.getElementById("ftdmus").appendChild(tablerow)
+            }
+            if(i===1){//ikinci tablo 700000 hesap
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "700000"
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["700000"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("ftdmus").appendChild(tablerow);   
+            }
+            if(i===2){//ikinci tablo 700000 hesap
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "10000"
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["10000"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("ftdmus").appendChild(tablerow);   
+            }
+            if(i===3){ //ikinci tablo natro net yani son row
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "Genel Toplam"
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["ftdmustoplam"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("ftdmus").appendChild(tablerow);   
+            }
+
+        }
+
+
+        //ftd ikinci tabloyu oluşturuyor
+        for (i=0;i<11;i++){
+            if(i===0){ 
+                let tablerow = document.createElement("tr");
+                for(b=0;b<tableheadings.length;b++){
+                    let th = document.createElement("th")
+                    th.innerHTML = tableheadings[b];
+                    document.getElementById("firstrow5").appendChild(th)
+                }
+                document.getElementById("ftdtable").appendChild(tablerow)
+            }
+
+            if(i===2){
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "CFH"
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["1006"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("ftdtable").appendChild(tablerow);   
+            }
+
+            if(i===3){
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "IS PRIME"
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["1007"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("ftdtable").appendChild(tablerow);   
+            }
+
+            if(i===4){
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "IS SWAP"
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["1008"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("ftdtable").appendChild(tablerow);   
+            }
+
+            if(i===5){
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "SUCDEN"
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["1009"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("ftdtable").appendChild(tablerow);   
+            }
+
+            if(i===6){
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "SAXO"
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["1012"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("ftdtable").appendChild(tablerow);   
+            }
+
+            if(i===7){
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "1003 BOOK"
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["1003"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("ftdtable").appendChild(tablerow);   
+            }
+
+            if(i===8){
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "SYNTHETIC"
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["sentetik"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("ftdtable").appendChild(tablerow);   
+            }
+
+            if(i===9){
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "RESIDUAL"
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["1004"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("ftdtable").appendChild(tablerow);   
+            }
+
+            if(i===10){
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "FTD Net"
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["ftdnet"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("ftdtable").appendChild(tablerow);   
+            }
+
+
+
+            
+            
+
+        }
+
+
+
+        //ftd 3. tablo yani ftd fark oluşturuyor
+        for(i=0;i<2;i++){
+            if(i===0){ 
+                let tablerow = document.createElement("tr");
+                for(b=0;b<tableheadings.length;b++){
+                    let th = document.createElement("th")
+                    th.innerHTML = tableheadings[b];
+                    document.getElementById("firstrow6").appendChild(th)
+                }
+                document.getElementById("ftdfark").appendChild(tablerow)
+            }
+
+            if(i===1){//üçüncü tablo 2. satır
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = " "
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["ftdfark"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("ftdfark").appendChild(tablerow);   
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
 
 
     };
