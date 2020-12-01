@@ -143,7 +143,7 @@ selectedFile.onchange = function(){
         //ftd net objesi oluşturuyor
         table["ftdnet"] = {}
         for(b=0;b<tableheadings.length;b++){
-            let net = table["1006"][tableheadings[b]] + table["1007"][tableheadings[b]] + table["1008"][tableheadings[b]] + table["1009"][tableheadings[b]] + table["1012"][tableheadings[b]] + table["sentetik"][tableheadings[b]] + table["1005"][tableheadings[b]] - table["1003"][tableheadings[b]]
+            let net = table["1006"][tableheadings[b]] + table["1007"][tableheadings[b]] + table["1008"][tableheadings[b]] + table["1009"][tableheadings[b]] + table["1012"][tableheadings[b]] - table["1004"][tableheadings[b]] + table["1005"][tableheadings[b]] - table["1003"][tableheadings[b]]
             net = Math.round(net * 100) / 100
             table["ftdnet"][tableheadings[b]] = net;
         }
@@ -157,6 +157,8 @@ selectedFile.onchange = function(){
             fark = Math.round(fark * 100) / 100
             table["ftdfark"][tableheadings[b]] = fark;
         }
+
+        //ozet objesi oluşturuyor
 
         console.log(table)
 
@@ -448,7 +450,7 @@ selectedFile.onchange = function(){
                 tablerow.appendChild(td1);
                 for(b=0;b<tableheadings.length;b++){
                     let td = document.createElement("td");
-                    td.innerHTML = table["sentetik"][tableheadings[b]]
+                    td.innerHTML = table["1004"][tableheadings[b]]
                     tablerow.appendChild(td)
                     }
                 document.getElementById("ftdtable").appendChild(tablerow);   
@@ -515,6 +517,52 @@ selectedFile.onchange = function(){
             }
         }
 
+        let ozetheadings = []
+        for(i=0;i<3;i++){
+            
+            if(i===0){//özet heading kısmı
+                let tablerow = document.createElement("tr");
+                for(b=0;b<tableheadings.length;b++){
+                    
+                    if(table["natrofark"][tableheadings[b]] != 0||table["ftdfark"][tableheadings[b]] != 0){
+                        ozetheadings.push(tableheadings[b])
+                        let th = document.createElement("th")
+                        th.innerHTML = tableheadings[b];
+                        document.getElementById("firstrow7").appendChild(th)}
+
+                }
+                document.getElementById("ozettablo").appendChild(tablerow)
+                
+            }
+
+            if(i===1){//özet tablo 2. satır
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "FTD Fark"
+                tablerow.appendChild(td1);
+                for(b=0;b<ozetheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["ftdfark"][ozetheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("ozettablo").appendChild(tablerow);   
+            }
+
+            if(i===2){//özet tablo 3. satır
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "Natro Fark"
+                tablerow.appendChild(td1);
+                for(b=0;b<ozetheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["natrofark"][ozetheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("ozettablo").appendChild(tablerow);   
+            }
+
+        }
+
 
 
 
@@ -540,12 +588,21 @@ selectedFile.onchange = function(){
 
 function ftdButton() {
     document.getElementById("natrotables").style.display = "none";
+    document.getElementById("ozet").style.display = "none";
     document.getElementById("ftdtables").style.display = "block";
     document.getElementById("ftdfark").scrollIntoView({behavior:"smooth",block:"center"});
 }
 
 function natroButton() {
     document.getElementById("ftdtables").style.display = "none";
+    document.getElementById("ozet").style.display = "none";
     document.getElementById("natrotables").style.display = "block";
     document.getElementById("natrofark").scrollIntoView({behavior:"smooth",block:"center"})
+}
+
+function ozetButton() {
+    document.getElementById("ftdtables").style.display = "none";
+    document.getElementById("natrotables").style.display = "none";
+    document.getElementById("ozet").style.display = "block";
+    document.getElementById("ozet").scrollIntoView({behavior:"smooth",block:"center"})
 }

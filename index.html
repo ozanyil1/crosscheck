@@ -6,6 +6,11 @@
                 text-align: center;
             }
 
+            
+            #ozettablo, #ozettablo td, #ozettablo th {
+                font-size: medium;
+                padding: 5px 20px;
+            }
 
             table {
                 border-collapse: collapse;
@@ -26,7 +31,7 @@
                 border-radius: 10%;
             }
 
-            #natrotables, #ftdtables {
+            #natrotables, #ftdtables, #ozet {
                 display:none;
                 text-align: center;
             }
@@ -43,7 +48,7 @@
     <body>
         
 
-        <div id="buttons"><input type="file"id="avatar"> <button onclick="natroButton()">Natro</button><button onclick="ftdButton()">Ftd</button></div><br>
+        <div id="buttons"><input type="file"id="avatar"> <button onclick="natroButton()">Natro</button><button onclick="ftdButton()">Ftd</button><button onclick="ozetButton()">Özet</button></div><br>
 
 
         <div id="natrotables">
@@ -69,6 +74,11 @@
             <table id="ftdfark">
             <tr id="firstrow6"><th>FTD fark</th></tr>
             </table><br>
+        </div>
+        <div id="ozet">
+            <table id="ozettablo">
+                <tr id="firstrow7"><th>Özet</th></tr>
+                </table><br>
         </div>
         
         <script type="text/javascript" src="script.js"></script>  
