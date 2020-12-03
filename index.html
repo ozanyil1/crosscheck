@@ -1,9 +1,20 @@
 <html>
     <head>
+        <title>Crosscheck</title>
         <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
             body {
                 margin: 0;
                 text-align: center;
+            }
+
+            main {
+                margin:90px;
             }
 
             
@@ -12,15 +23,22 @@
                 padding: 5px 20px;
             }
 
+            img {
+                width: 40px;
+                height: 40px;
+            }
+
+
             table {
                 border-collapse: collapse;
                 text-align: center;
                 font-size: small;
                 margin:40px 40px 40px 40px;
-                background-color: rgb(235, 213, 217);
+                background-color:rgb(217, 243, 243);
                 margin-left: auto;
                 margin-right: auto;
-                
+                border-radius:6px;
+                -moz-border-radius:6px;
             }
 
             table td, table th {
@@ -28,7 +46,6 @@
                 width: 75px;
                 padding:0px 0px;
                 float:none;
-                border-radius: 10%;
             }
 
             #natrotables, #ftdtables, #ozet {
@@ -36,21 +53,59 @@
                 text-align: center;
             }
 
-            #buttons {
-                position: fixed;
-                background-color: grey;
-                display: block;
+            header {
+                top: 0;
                 width: 100%;
-                box-sizing: border-box;
+                position: fixed;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 10px;
+                background-color:rgb(201, 204, 197);
+                margin-bottom: 50px;
+                border-bottom: 1px solid blue;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                font-weight: 500;
+                font-size: 12px;
             }
+
+            #buttons {
+                cursor: pointer;
+                list-style: none;
+                height: 100%;
+                display: inline-block;
+            }
+
+            li {
+                display: inline-block;
+                padding:0 20px;
+                color: blue;
+            }
+            li:hover {
+                color: rgb(44, 189, 199);
+            }
+
+            
         </style>
     </head>
     <body>
         
 
-        <div id="buttons"><input type="file"id="avatar"> <button onclick="natroButton()">Natro</button><button onclick="ftdButton()">Ftd</button><button onclick="ozetButton()">Özet</button></div><br>
+        <header>
+            <div></div>
+            <nav>
+                <ul id="buttons">
+                    <li><input type="file"id="avatar"></li>
+                    <li onclick="natroButton()">Natro</li>
+                    <li onclick="ftdButton()">Ftd</li>
+                    <li onclick="ozetButton()">Özet</li>
+                </ul> 
+                
+            </nav>
+            <a href="https://www.linkedin.com/in/halit-ozan-y%C4%B1lmaz-53797b108/"><img src="./in.png"></a>
+        </header>
 
-
+        <main>
         <div id="natrotables">
             <table id="7000table">
             <tr id="firstrow"><th>Natro Müş.</th></tr></table><br>
@@ -80,6 +135,7 @@
                 <tr id="firstrow7"><th>Özet</th></tr>
                 </table><br>
         </div>
+        </main>
         
         <script type="text/javascript" src="script.js"></script>  
     </body>
