@@ -1,7 +1,7 @@
 const selectedFile = document.getElementById('avatar');
 
 selectedFile.onchange = function(){
-    document.getElementById("natrotables").style.display = "block"
+    document.getElementById("ozet").style.display = "block"
     const reader = new FileReader();
     reader.onload = function(){ 
         const lines = reader.result.split("\n");
@@ -247,13 +247,13 @@ selectedFile.onchange = function(){
             }
             if(i===3){ //ikinci tanblo natro net yani son row
                 let tablerow = document.createElement("tr");
-                let td1 = document.createElement("td")
-                td1.innerHTML = "Natro Net"
-                tablerow.appendChild(td1);
+                let th1 = document.createElement("th")
+                th1.innerHTML = "Natro Net"
+                tablerow.appendChild(th1);
                 for(b=0;b<tableheadings.length;b++){
-                    let td = document.createElement("td");
-                    td.innerHTML = table["natronet"][tableheadings[b]]
-                    tablerow.appendChild(td)
+                    let th = document.createElement("th");
+                    th.innerHTML = table["natronet"][tableheadings[b]]
+                    tablerow.appendChild(th)
                     }
                 document.getElementById("natrotable").appendChild(tablerow);   
             }
@@ -325,7 +325,7 @@ selectedFile.onchange = function(){
                     }
                 document.getElementById("ftdmus").appendChild(tablerow);   
             }
-            if(i===2){//ikinci tablo 700000 hesap
+            if(i===2){//ikinci tablo 10000 hesap
                 let tablerow = document.createElement("tr");
                 let td1 = document.createElement("td")
                 td1.innerHTML = "10000"
@@ -339,13 +339,13 @@ selectedFile.onchange = function(){
             }
             if(i===3){ //ikinci tablo natro net yani son row
                 let tablerow = document.createElement("tr");
-                let td1 = document.createElement("td")
-                td1.innerHTML = "Genel Toplam"
-                tablerow.appendChild(td1);
+                let th1 = document.createElement("th")
+                th1.innerHTML = "Genel Toplam"
+                tablerow.appendChild(th1);
                 for(b=0;b<tableheadings.length;b++){
-                    let td = document.createElement("td");
-                    td.innerHTML = table["ftdmustoplam"][tableheadings[b]]
-                    tablerow.appendChild(td)
+                    let th = document.createElement("th");
+                    th.innerHTML = table["ftdmustoplam"][tableheadings[b]]
+                    tablerow.appendChild(th)
                     }
                 document.getElementById("ftdmus").appendChild(tablerow);   
             }
@@ -471,13 +471,13 @@ selectedFile.onchange = function(){
 
             if(i===10){
                 let tablerow = document.createElement("tr");
-                let td1 = document.createElement("td")
-                td1.innerHTML = "FTD Net"
-                tablerow.appendChild(td1);
+                let th1 = document.createElement("th")
+                th1.innerHTML = "FTD Net"
+                tablerow.appendChild(th1);
                 for(b=0;b<tableheadings.length;b++){
-                    let td = document.createElement("td");
-                    td.innerHTML = table["ftdnet"][tableheadings[b]]
-                    tablerow.appendChild(td)
+                    let th = document.createElement("th");
+                    th.innerHTML = table["ftdnet"][tableheadings[b]]
+                    tablerow.appendChild(th)
                     }
                 document.getElementById("ftdtable").appendChild(tablerow);   
             }
