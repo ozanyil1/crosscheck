@@ -109,7 +109,7 @@ selectedFile.onchange = function(){
         //burası natro net objesi oluşturuyor yani 700000 eksi 1013
         table["natronet"] = {}
         for(b=0;b<tableheadings.length;b++){
-            let net = table["700000"][tableheadings[b]] - table["1013"][tableheadings[b]]
+            let net = table["700000"][tableheadings[b]] - table["1013"][tableheadings[b]] - table["1014"][tableheadings[b]]
             net = Math.round(net * 100) / 100
             table["natronet"][tableheadings[b]] = net;
         }
@@ -211,7 +211,7 @@ selectedFile.onchange = function(){
 
 
         //burası ikinci tablo
-        for (i=0;i<4;i++){
+        for (i=0;i<5;i++){
             if(i===0){ //burası ikinci tablo headingler
                 let tablerow = document.createElement("tr");
                 for(b=0;b<tableheadings.length;b++){
@@ -245,7 +245,19 @@ selectedFile.onchange = function(){
                     }
                 document.getElementById("natrotable").appendChild(tablerow);   
             }
-            if(i===3){ //ikinci tanblo natro net yani son row
+            if(i===3){//ikinci tablo copy trade
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "1014 C.T."
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["1014"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("natrotable").appendChild(tablerow);   
+            }
+            if(i===4){ //ikinci tanblo natro net yani son row
                 let tablerow = document.createElement("tr");
                 let th1 = document.createElement("th")
                 th1.innerHTML = "Natro Net"
