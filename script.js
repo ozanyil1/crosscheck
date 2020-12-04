@@ -2,6 +2,7 @@ const selectedFile = document.getElementById('avatar');
 
 selectedFile.onchange = function(){
     document.getElementById("ozet").style.display = "block"
+    document.getElementById("h1").style.display = "none"
     const reader = new FileReader();
     reader.onload = function(){ 
         const lines = reader.result.split("\n");
