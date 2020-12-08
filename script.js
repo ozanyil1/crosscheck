@@ -1,8 +1,13 @@
 const selectedFile = document.getElementById('avatar');
 
 selectedFile.onchange = function(){
-    document.getElementById("ozet").style.display = "block"
-    document.getElementById("h1").style.display = "none"
+    document.getElementById("ozet").style.display = "block";
+    document.getElementById("h1").style.display = "none";
+    document.getElementById("li1").style.display = "none";
+    document.getElementById("li2").style.display = "inline-block";
+    document.getElementById("li3").style.display = "inline-block";
+    document.getElementById("li4").style.display = "inline-block";
+    
     const reader = new FileReader();
     reader.onload = function(){ 
         const lines = reader.result.split("\n");
