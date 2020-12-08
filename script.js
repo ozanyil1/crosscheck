@@ -62,7 +62,7 @@ selectedFile.onchange = function(){
         
         let tableheadings = []
         let natromus = []
-        let hesaplar = ["1003","1004","1005","1006","1007","1008","1009","1012","1013","1014","10000","700000"]
+        let hesaplar = ["1003","1004","1005","1006","1007","1008","1009","1012","1013","1014","10000","10003","700000"]
         let butunhesaplar = Object.keys(table)
         let sentetik = ["GAUUSD","GAUTRY","XAUTRY","XAGTRY","EURCNH","CNHTRY","SGDCNH","CNHHKD","XAUTHB","GBPHKD","XAUEUR","TRYRUB","XAUCNH","XAUHKD"]
 
@@ -131,7 +131,7 @@ selectedFile.onchange = function(){
         //ftdmustoplam objesi oluşturuyor
         table["ftdmustoplam"] = {}
         for(b=0;b<tableheadings.length;b++){
-            let toplam = table["700000"][tableheadings[b]] + table["10000"][tableheadings[b]]
+            let toplam = table["700000"][tableheadings[b]] + table["10000"][tableheadings[b]] + table["10003"][tableheadings[b]]
             toplam = Math.round(toplam * 100) / 100
             table["ftdmustoplam"][tableheadings[b]] = toplam;
         }
@@ -321,7 +321,7 @@ selectedFile.onchange = function(){
 
 
         //burada ftd müş yapıyor
-        for(i=0;i<4;i++){
+        for(i=0;i<5;i++){
             if(i===0){ 
                 let tablerow = document.createElement("tr");
                 for(b=0;b<tableheadings.length;b++){
@@ -355,7 +355,19 @@ selectedFile.onchange = function(){
                     }
                 document.getElementById("ftdmus").appendChild(tablerow);   
             }
-            if(i===3){ //ikinci tablo natro net yani son row
+            if(i===3){//ikinci tablo 10000 hesap
+                let tablerow = document.createElement("tr");
+                let td1 = document.createElement("td")
+                td1.innerHTML = "10003"
+                tablerow.appendChild(td1);
+                for(b=0;b<tableheadings.length;b++){
+                    let td = document.createElement("td");
+                    td.innerHTML = table["10003"][tableheadings[b]]
+                    tablerow.appendChild(td)
+                    }
+                document.getElementById("ftdmus").appendChild(tablerow);   
+            }
+            if(i===4){ //ikinci tablo natro net yani son row
                 let tablerow = document.createElement("tr");
                 let th1 = document.createElement("th")
                 th1.innerHTML = "Genel Toplam"
