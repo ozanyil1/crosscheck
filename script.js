@@ -568,26 +568,26 @@ selectedFile.onchange = function(){
 
             if(i===1){//özet tablo 2. satır
                 let tablerow = document.createElement("tr");
-                let td1 = document.createElement("td")
+                let td1 = document.createElement("th")
                 td1.innerHTML = "FTD Fark"
                 tablerow.appendChild(td1);
                 for(b=0;b<ozetheadings.length;b++){
-                    let td = document.createElement("td");
-                    td.innerHTML = table["ftdfark"][ozetheadings[b]]
-                    tablerow.appendChild(td)
+                    let th = document.createElement("th");
+                    th.innerHTML = table["ftdfark"][ozetheadings[b]]
+                    tablerow.appendChild(th)
                     }
                 document.getElementById("ozettablo").appendChild(tablerow);   
             }
 
             if(i===2){//özet tablo 3. satır
                 let tablerow = document.createElement("tr");
-                let td1 = document.createElement("td")
+                let td1 = document.createElement("th")
                 td1.innerHTML = "Natro Fark"
                 tablerow.appendChild(td1);
                 for(b=0;b<ozetheadings.length;b++){
-                    let td = document.createElement("td");
-                    td.innerHTML = table["natrofark"][ozetheadings[b]]
-                    tablerow.appendChild(td)
+                    let th = document.createElement("th");
+                    th.innerHTML = table["natrofark"][ozetheadings[b]]
+                    tablerow.appendChild(th)
                     }
                 document.getElementById("ozettablo").appendChild(tablerow);   
             }
