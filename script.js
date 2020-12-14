@@ -1,4 +1,4 @@
-window.alert("Test aşamasındadır.")
+window.alert("Test aşamasındadır. Lütfen sonuçları manuel kontrol ediniz")
 const selectedFile = document.getElementById('avatar');
 
 selectedFile.onchange = function(){
