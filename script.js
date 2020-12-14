@@ -494,7 +494,7 @@ selectedFile.onchange = function(){
                 tablerow.appendChild(td1);
                 for(b=0;b<tableheadings.length;b++){
                     let td = document.createElement("td");
-                    td.innerHTML = table["1004"][tableheadings[b]]
+                    td.innerHTML = table["1005"][tableheadings[b]]
                     tablerow.appendChild(td)
                     }
                 document.getElementById("ftdtable").appendChild(tablerow);   
