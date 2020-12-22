@@ -322,7 +322,7 @@ selectedFile.onchange = function(){
 
 
         //burada ftd müş yapıyor
-        for(i=0;i<5;i++){
+        for(i=0;i<8;i++){
             if(i===0){ 
                 let tablerow = document.createElement("tr");
                 for(b=0;b<tableheadings.length;b++){
