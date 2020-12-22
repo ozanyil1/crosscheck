@@ -132,7 +132,7 @@ selectedFile.onchange = function(){
         //ftdmustoplam objesi oluşturuyor
         table["ftdmustoplam"] = {}
         for(b=0;b<tableheadings.length;b++){
-            let toplam = table["700000"][tableheadings[b]] + table["10000"][tableheadings[b]] + table["10001"][tableheadings[b]] + table["10002"][tableheadings[b]] + table["10003"][tableheadings[b]] + table["10004"][tableheadings[b]] +
+            let toplam = table["700000"][tableheadings[b]] + table["10000"][tableheadings[b]] + table["10001"][tableheadings[b]] + table["10002"][tableheadings[b]] + table["10003"][tableheadings[b]] + table["10004"][tableheadings[b]]
             toplam = Math.round(toplam * 100) / 100
             table["ftdmustoplam"][tableheadings[b]] = toplam;
         }
