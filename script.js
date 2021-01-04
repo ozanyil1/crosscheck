@@ -1,4 +1,7 @@
+
 window.alert("Test aşamasındadır. Lütfen sonuçları manuel kontrol ediniz")
+let weburl = window.location.href
+
 const selectedFile = document.getElementById('avatar');
 
 selectedFile.onchange = function(){
