@@ -1,7 +1,7 @@
 
 window.alert("Test aşamasındadır. Lütfen sonuçları manuel kontrol ediniz")
 let weburl = window.location.href
-alert(weburl)
+
 
 const selectedFile = document.getElementById('avatar');
 
@@ -64,7 +64,8 @@ selectedFile.onchange = function(){
             lines.push(lineelement);
         }
         
-        
+        let vilnius = weburl.charAt(15) === "1" && weburl.charAt(24) === "i"
+        alert(vilnius)
         let tableheadings = []
         let natromus = []
         let hesaplar = ["1003","1004","1005","1006","1007","1008","1009","1012","1013","1014","10000","10001","10002","10003","10004","700000"]
@@ -662,22 +663,25 @@ selectedFile.onchange = function(){
 }
 
 function ftdButton() {
-    document.getElementById("natrotables").style.display = "none";
+    if (vilnius)
+    {document.getElementById("natrotables").style.display = "none";
     document.getElementById("ozet").style.display = "none";
     document.getElementById("ftdtables").style.display = "block";
-    document.getElementById("ftdfark").scrollIntoView({behavior:"smooth",block:"center"});
+    document.getElementById("ftdfark").scrollIntoView({behavior:"smooth",block:"center"});}
 }
 
 function natroButton() {
-    document.getElementById("ftdtables").style.display = "none";
+    if (vilnius)
+    {document.getElementById("ftdtables").style.display = "none";
     document.getElementById("ozet").style.display = "none";
     document.getElementById("natrotables").style.display = "block";
-    document.getElementById("natrofark").scrollIntoView({behavior:"smooth",block:"center"})
+    document.getElementById("natrofark").scrollIntoView({behavior:"smooth",block:"center"})}
 }
 
 function ozetButton() {
-    document.getElementById("ftdtables").style.display = "none";
+    if (vilnius)
+    {document.getElementById("ftdtables").style.display = "none";
     document.getElementById("natrotables").style.display = "none";
     document.getElementById("ozet").style.display = "block";
-    document.getElementById("ozet").scrollIntoView({behavior:"smooth",block:"center"})
+    document.getElementById("ozet").scrollIntoView({behavior:"smooth",block:"center"})}
 }
