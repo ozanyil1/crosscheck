@@ -1,6 +1,7 @@
 
 window.alert("Test aşamasındadır. Lütfen sonuçları manuel kontrol ediniz")
 let weburl = window.location.href
+alert(weburl)
 
 const selectedFile = document.getElementById('avatar');
 
