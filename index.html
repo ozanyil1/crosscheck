@@ -55,7 +55,7 @@
                 float:none;
             }
 
-            #natrotables, #ftdtables, #ozet {
+            #natrotables, #ftdtables, #ozet, #booklist {
                 display:none;
                 text-align: center;
                 margin-top:90px;
@@ -87,6 +87,13 @@
                 display: inline-block;
             }
 
+            #button {
+                cursor: pointer;
+                list-style: none;
+                height: 100%;
+                display: inline-block;
+            }
+
             li {
                 display: inline-block;
                 padding:0 20px;
@@ -94,6 +101,25 @@
             }
             li:hover {
                 color: rgb(44, 189, 199);
+            }
+
+
+            #booklist{
+                padding: 100px;
+            }
+
+            #booklist ul {
+                border: inset;
+                border-width:5px;
+            }
+            #booklist li {
+                
+                display: block;
+                
+            }
+
+            #booklist li span, #booklist li label, #booklist li input {
+                margin:5px;
             }
 
             #disclaimer {
@@ -107,7 +133,9 @@
         
 
         <header>
-            <div></div>
+            <ul id="button"> 
+                <li onclick="bookButton()" id="li5" style="display: none;">Book</li>
+            </ul>
             <nav>
                 <ul id="buttons">
                     <li id="li1"><input type="file"id="avatar"></li>
@@ -150,6 +178,18 @@
             <table id="ozettablo">
                 <tr id="firstrow7"><th>Özet</th></tr>
                 </table><br>
+        </div>
+
+        <div id="book">
+            <div id="booklist">
+                <ul>
+                    <li>Genel Book<label for="genel100">%100</label><input id="genel100" type="text"><label for="genel50">%50</label><input id="genel50" type="text"><label for="genel25">%25</label><input id="genel25" type="text"></li>
+                    <li>EURUSD<label for="eurusd100">%100</label><input id="eurusd100" type="text"><label for="eurusd50">%50</label><input id="eurusd50" type="text"><label for="eurusd25">%25</label><input id="eurusd25" type="text"></li>
+                    <li>XAUUSD<label for="xauusd100">%100</label><input id="xauusd100" type="text"><label for="xauusd50">%50</label><input id="xauusd50" type="text"><label for="xauusd25">%25</label><input id="xauusd25" type="text"></li>
+                    <li>USDTRY<label for="usdtry100">%100</label><input id="usdtry100" type="text"><label for="usdtry50">%50</label><input id="usdtry50" type="text"><label for="usdtry25">%25</label><input id="usdtry25" type="text"></li>
+                    <li><button onClick="calculate()">Hesapla</button></li>
+                </ul>
+            </div>
         </div>
 
         <div id="disclaimer">
