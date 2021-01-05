@@ -1,5 +1,13 @@
 
 window.alert("Test aşamasındadır. Lütfen sonuçları manuel kontrol ediniz")
+
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+    
+  } else {
+    alert('The File APIs are not fully supported in this browser.');
+}
+
+
 let weburl = window.location.href
 
 
@@ -12,6 +20,7 @@ selectedFile.onchange = function(){
     document.getElementById("li2").style.display = "inline-block";
     document.getElementById("li3").style.display = "inline-block";
     document.getElementById("li4").style.display = "inline-block";
+    document.getElementById("li5").style.display = "inline-block";
     
     const reader = new FileReader();
     reader.onload = function(){ 
@@ -64,13 +73,14 @@ selectedFile.onchange = function(){
             lines.push(lineelement);
         }
         
-        let vilnius = weburl.charAt(15) === "1" && weburl.charAt(24) === "i"
-        alert(vilnius)
+        let vilnius = weburl.charAt(15) === "1" && weburl.charAt(24) === "i";
         let tableheadings = []
         let natromus = []
         let hesaplar = ["1003","1004","1005","1006","1007","1008","1009","1012","1013","1014","10000","10001","10002","10003","10004","700000"]
         let butunhesaplar = Object.keys(table)
         let sentetik = ["GAUUSD","GAUTRY","XAUTRY","XAGTRY","EURCNH","CNHTRY","SGDCNH","CNHHKD","XAUTHB","GBPHKD","XAUEUR","TRYRUB","XAUCNH","XAUHKD"]
+        
+        
 
 
 
@@ -663,25 +673,164 @@ selectedFile.onchange = function(){
 }
 
 function ftdButton() {
-    if (vilnius)
+    if (true)
     {document.getElementById("natrotables").style.display = "none";
     document.getElementById("ozet").style.display = "none";
+    document.getElementById("booklist").style.display = "none";
     document.getElementById("ftdtables").style.display = "block";
     document.getElementById("ftdfark").scrollIntoView({behavior:"smooth",block:"center"});}
 }
 
 function natroButton() {
-    if (vilnius)
+    if (true)
     {document.getElementById("ftdtables").style.display = "none";
     document.getElementById("ozet").style.display = "none";
+    document.getElementById("booklist").style.display = "none";
     document.getElementById("natrotables").style.display = "block";
     document.getElementById("natrofark").scrollIntoView({behavior:"smooth",block:"center"})}
 }
 
 function ozetButton() {
-    if (vilnius)
+    if (true)
     {document.getElementById("ftdtables").style.display = "none";
     document.getElementById("natrotables").style.display = "none";
+    document.getElementById("booklist").style.display = "none";
     document.getElementById("ozet").style.display = "block";
     document.getElementById("ozet").scrollIntoView({behavior:"smooth",block:"center"})}
+}
+
+function bookButton() {
+    if (true)
+    {document.getElementById("ftdtables").style.display = "none";
+    document.getElementById("natrotables").style.display = "none";
+    document.getElementById("ozet").style.display = "none";
+    document.getElementById("booklist").style.display = "block";
+    document.getElementById("booklist").scrollIntoView({behavior:"smooth",block:"center"})}
+}
+
+function calculate() {
+    const reader = new FileReader();
+    reader.readAsText(selectedFile.files[0])
+    reader.onload = function(){
+        const lines = reader.result.split("\n");
+        lines.pop();
+        lines.shift();
+        lines.shift();
+        
+        let table = {}
+
+        for(i=0;i<lines.length;i++){
+            let lineelement = lines[0];
+            lineelement = lineelement.split(";")
+            lineelement.splice(1,1);
+            lineelement.splice(2,1);
+            lineelement.splice(4,5);
+
+            if (lineelement[1].charAt(lineelement[1].length-1) === "."){
+                let symbol =  lineelement[1].slice(0,-1)
+                lineelement.splice(1,1)
+                lineelement.push(symbol)
+            } else {
+                let symbol = lineelement[1]
+                lineelement.splice(1,1)
+                lineelement.push(symbol)
+            }
+
+            if(lineelement[1] === "sell"){
+                let volume = lineelement[2] * -1
+                lineelement.splice(2,1,volume)
+            } else {
+                let volume = lineelement[2] * 1
+                lineelement.splice(2,1,volume)
+            }
+            lineelement.splice(1,1);
+            
+            if (table[lineelement[0]] === undefined) {table[lineelement[0]] = {}}
+            if (table[lineelement[0]][lineelement[2]] === undefined) 
+                {table[lineelement[0]][lineelement[2]] = 0;
+                table[lineelement[0]][lineelement[2]] = table[lineelement[0]][lineelement[2]] + lineelement[1]
+                table[lineelement[0]][lineelement[2]] = Math.round(table[lineelement[0]][lineelement[2]] * 100) / 100
+                } 
+            else {
+                table[lineelement[0]][lineelement[2]] = table[lineelement[0]][lineelement[2]] + lineelement[1]
+                table[lineelement[0]][lineelement[2]] = Math.round(table[lineelement[0]][lineelement[2]] * 100) / 100
+            }   
+            
+            
+            lines.shift();
+            lines.push(lineelement);
+        }
+        
+        
+
+
+        let vilnius = weburl.charAt(15) === "1" && weburl.charAt(24) === "i";
+        let tableheadings = []
+        let natromus = []
+        let hesaplar = ["1003","1004","1005","1006","1007","1008","1009","1012","1013","1014","10000","10001","10002","10003","10004","700000"]
+        let butunhesaplar = Object.keys(table)
+        let inputs = ["genel100","genel50","genel25","eurusd100","eurusd50","eurusd25","xauusd100","xauusd50","xauusd25","usdtry100","usdtry50","usdtry25"]
+        let bookobject = {}
+        let bookobject2 = {}
+        let bookaccounts = []
+        let booktable = {}
+
+        //burası headingsleri ve natromus yapıyor
+        for (i=0;i<Object.keys(table).length;i++){
+            
+            if(butunhesaplar[i]>6999&&butunhesaplar[i]<8000){natromus.push(butunhesaplar[i])
+
+            }
+            let symbols = Object.keys(table[Object.keys(table)[i]]);
+            
+            for (b=0;b<symbols.length;b++){
+                if(tableheadings.indexOf(symbols[b]) === -1) {
+                    tableheadings.push(symbols[b]);
+                    
+
+                }
+            }
+        }
+
+        
+        //burası 7000lere sembolleri ekliyor
+        for(i=0;i<natromus.length;i++){
+            for(b=0;b<tableheadings.length;b++){
+                if(table[natromus[i]][tableheadings[b]] === undefined) {table[natromus[i]][tableheadings[b]] = 0} 
+            }
+        }
+
+        //burası diğer hesaplara sembolleri veya hesapları ekliyor
+        for(i=0;i<hesaplar.length;i++){
+            if (table[hesaplar[i]] === undefined) {table[hesaplar[i]] = {}}
+            for(b=0;b<tableheadings.length;b++){
+                if(table[hesaplar[i]][tableheadings[b]] === undefined) {table[hesaplar[i]][tableheadings[b]] = 0} 
+            }
+        }
+
+        for (a=0;a<inputs.length;a++){
+            let accounts = document.getElementById(inputs[a]).value
+            accounts = accounts.trim()
+            accounts = accounts.split(",")
+            bookobject[inputs[a]] = accounts
+            for (b=0;b<accounts.length;b++){
+                if(bookaccounts.indexOf(accounts[b]) > -1 && bookaccounts.indexOf(accounts[b]) != "") {
+                    alert("aynı hesap 2 rule dahilinde");
+                    console.log(typeof accounts[b])
+                } else {bookaccounts.push(accounts[b])}
+            }
+        }
+        
+        
+        function calculateBookTable() {
+            for (a=0;a<bookobject[genel100].length;a++){
+                
+            }
+        }
+        console.log(bookobject)
+    }
+
+    
+
+    
 }
