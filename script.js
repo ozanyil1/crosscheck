@@ -1,9 +1,3 @@
-
-window.alert("Test aşamasındadır. Lütfen sonuçları manuel kontrol ediniz")
-let weburl = window.location.href
-let vilnius = weburl.charAt(15) === "1" && weburl.charAt(24) === "i";
-alert(vilnius)
-
 if (window.File && window.FileReader && window.FileList && window.Blob) {
     
   } else {
@@ -674,6 +668,11 @@ selectedFile.onchange = function(){
     
     
 }
+
+window.alert("Test aşamasındadır. Lütfen sonuçları manuel kontrol ediniz")
+let weburl = window.location.href
+let vilnius = weburl.charAt(15) === "1" && weburl.charAt(24) === "i";
+alert(vilnius)
 
 function ftdButton() {
     if (vilnius)
