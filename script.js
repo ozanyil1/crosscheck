@@ -1,5 +1,6 @@
 
 window.alert("Test aşamasındadır. Lütfen sonuçları manuel kontrol ediniz")
+let weburl = window.location.href
 let vilnius = weburl.charAt(15) === "1" && weburl.charAt(24) === "i";
 alert(vilnius)
 
@@ -10,7 +11,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 }
 
 
-let weburl = window.location.href
+
 
 
 const selectedFile = document.getElementById('avatar');
