@@ -674,7 +674,7 @@ selectedFile.onchange = function(){
 }
 
 function ftdButton() {
-    if (true)
+    if (vilnius)
     {document.getElementById("natrotables").style.display = "none";
     document.getElementById("ozet").style.display = "none";
     document.getElementById("booklist").style.display = "none";
@@ -683,7 +683,7 @@ function ftdButton() {
 }
 
 function natroButton() {
-    if (true)
+    if (vilnius)
     {document.getElementById("ftdtables").style.display = "none";
     document.getElementById("ozet").style.display = "none";
     document.getElementById("booklist").style.display = "none";
@@ -692,7 +692,7 @@ function natroButton() {
 }
 
 function ozetButton() {
-    if (true)
+    if (vilnius)
     {document.getElementById("ftdtables").style.display = "none";
     document.getElementById("natrotables").style.display = "none";
     document.getElementById("booklist").style.display = "none";
@@ -701,7 +701,7 @@ function ozetButton() {
 }
 
 function bookButton() {
-    if (true)
+    if (vilnius)
     {document.getElementById("ftdtables").style.display = "none";
     document.getElementById("natrotables").style.display = "none";
     document.getElementById("ozet").style.display = "none";
