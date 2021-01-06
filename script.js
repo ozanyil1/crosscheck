@@ -1,5 +1,7 @@
 
 window.alert("Test aşamasındadır. Lütfen sonuçları manuel kontrol ediniz")
+let vilnius = weburl.charAt(15) === "1" && weburl.charAt(24) === "i";
+alert(vilnius)
 
 if (window.File && window.FileReader && window.FileList && window.Blob) {
     
@@ -73,8 +75,7 @@ selectedFile.onchange = function(){
             lines.push(lineelement);
         }
         
-        let vilnius = weburl.charAt(15) === "1" && weburl.charAt(24) === "i";
-        alert(vilnius)
+        
         let tableheadings = []
         let natromus = []
         let hesaplar = ["1003","1004","1005","1006","1007","1008","1009","1012","1013","1014","10000","10001","10002","10003","10004","700000"]
