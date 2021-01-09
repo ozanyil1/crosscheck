@@ -19,6 +19,8 @@ selectedFile.onchange = function(){
     document.getElementById("li4").style.display = "inline-block";
     document.getElementById("li5").style.display = "inline-block";
     
+
+    if(vilnius){}else {document.getElementById("ozet").style.display = "none";}
     const reader = new FileReader();
     reader.onload = function(){ 
         const lines = reader.result.split("\n");
@@ -76,7 +78,7 @@ selectedFile.onchange = function(){
         let hesaplar = ["1003","1004","1005","1006","1007","1008","1009","1012","1013","1014","10000","10001","10002","10003","10004","700000"]
         let butunhesaplar = Object.keys(table)
         let sentetik = ["GAUUSD","GAUTRY","XAUTRY","XAGTRY","EURCNH","CNHTRY","SGDCNH","CNHHKD","XAUTHB","GBPHKD","XAUEUR","TRYRUB","XAUCNH","XAUHKD"]
-        
+        let terspoz = []
         
 
 
@@ -177,7 +179,12 @@ selectedFile.onchange = function(){
             table["ftdfark"][tableheadings[b]] = fark;
         }
 
-        //ozet objesi oluşturuyor
+        //terste kalmış ürünler arrayini dolduruyor
+        for(b=0;b<tableheadings.length;b++){
+            if (table[1006][tableheadings[b]]<=0===table[1007][tableheadings[b]]<=0&&table[1006][tableheadings[b]]<=0===table[1008][tableheadings[b]]<=0&&table[1006][tableheadings[b]]<=0===table[1009][tableheadings[b]]<=0&&table[1006][tableheadings[b]]<=0===table[1012][tableheadings[b]]<=0){} else if (table[1006][tableheadings[b]]>=0===table[1007][tableheadings[b]]>=0&&table[1006][tableheadings[b]]>=0===table[1008][tableheadings[b]]>=0&&table[1006][tableheadings[b]]>=0===table[1009][tableheadings[b]]>=0&&table[1006][tableheadings[b]]>=0===table[1012][tableheadings[b]]>=0){} else {terspoz.push(tableheadings[b])}
+        }
+
+        alert(terspoz)
 
         console.log(table)
 
@@ -646,6 +653,11 @@ selectedFile.onchange = function(){
 
         }
 
+        if (terspoz.length === 0) {
+            document.getElementById("terspozspan").innerHTML = "LP'lerde terste kalan pozisyon bulunmamaktadır"} 
+        else {
+            document.getElementById("terspozspan").innerHTML = "Terste kalan pozisyonlar:" + terspoz}
+
 
 
 
@@ -675,7 +687,7 @@ let vilnius = weburl.charAt(15) === "1" && weburl.charAt(24) === "i";
 alert(vilnius)
 
 function ftdButton() {
-    if (true)
+    if (vilnius)
     {document.getElementById("natrotables").style.display = "none";
     document.getElementById("ozet").style.display = "none";
     document.getElementById("booklist").style.display = "none";
@@ -684,7 +696,7 @@ function ftdButton() {
 }
 
 function natroButton() {
-    if (true)
+    if (vilnius)
     {document.getElementById("ftdtables").style.display = "none";
     document.getElementById("ozet").style.display = "none";
     document.getElementById("booklist").style.display = "none";
@@ -693,7 +705,7 @@ function natroButton() {
 }
 
 function ozetButton() {
-    if (true)
+    if (vilnius)
     {document.getElementById("ftdtables").style.display = "none";
     document.getElementById("natrotables").style.display = "none";
     document.getElementById("booklist").style.display = "none";
@@ -702,7 +714,7 @@ function ozetButton() {
 }
 
 function bookButton() {
-    if (true)
+    if (vilnius)
     {document.getElementById("ftdtables").style.display = "none";
     document.getElementById("natrotables").style.display = "none";
     document.getElementById("ozet").style.display = "none";
