@@ -1,7 +1,7 @@
 if (window.File && window.FileReader && window.FileList && window.Blob) {
     
   } else {
-    alert('The File APIs are not fully supported in this browser.');
+    alert('File API bu browserda desteklenmiyor.');
 }
 
 
@@ -162,7 +162,7 @@ selectedFile.onchange = function(){
         //ftd net objesi oluşturuyor
         table["ftdnet"] = {}
         for(b=0;b<tableheadings.length;b++){
-            let net = table["1006"][tableheadings[b]] + table["1007"][tableheadings[b]] + table["1008"][tableheadings[b]] + table["1009"][tableheadings[b]] + table["1012"][tableheadings[b]] - table["1004"][tableheadings[b]] + table["1005"][tableheadings[b]] - table["1003"][tableheadings[b]]
+            let net = table["1006"][tableheadings[b]] + table["1007"][tableheadings[b]] + table["1008"][tableheadings[b]] + table["1009"][tableheadings[b]] + table["1012"][tableheadings[b]] - table["1004"][tableheadings[b]] - table["1005"][tableheadings[b]] - table["1003"][tableheadings[b]]
             net = Math.round(net * 100) / 100
             table["ftdnet"][tableheadings[b]] = net;
         }
@@ -675,7 +675,7 @@ let vilnius = weburl.charAt(15) === "1" && weburl.charAt(24) === "i";
 alert(vilnius)
 
 function ftdButton() {
-    if (vilnius)
+    if (true)
     {document.getElementById("natrotables").style.display = "none";
     document.getElementById("ozet").style.display = "none";
     document.getElementById("booklist").style.display = "none";
@@ -684,7 +684,7 @@ function ftdButton() {
 }
 
 function natroButton() {
-    if (vilnius)
+    if (true)
     {document.getElementById("ftdtables").style.display = "none";
     document.getElementById("ozet").style.display = "none";
     document.getElementById("booklist").style.display = "none";
@@ -693,7 +693,7 @@ function natroButton() {
 }
 
 function ozetButton() {
-    if (vilnius)
+    if (true)
     {document.getElementById("ftdtables").style.display = "none";
     document.getElementById("natrotables").style.display = "none";
     document.getElementById("booklist").style.display = "none";
@@ -702,7 +702,7 @@ function ozetButton() {
 }
 
 function bookButton() {
-    if (vilnius)
+    if (true)
     {document.getElementById("ftdtables").style.display = "none";
     document.getElementById("natrotables").style.display = "none";
     document.getElementById("ozet").style.display = "none";
