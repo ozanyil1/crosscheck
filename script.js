@@ -184,7 +184,7 @@ selectedFile.onchange = function(){
             if (table[1006][tableheadings[b]]<=0===table[1007][tableheadings[b]]<=0&&table[1006][tableheadings[b]]<=0===table[1008][tableheadings[b]]<=0&&table[1006][tableheadings[b]]<=0===table[1009][tableheadings[b]]<=0&&table[1006][tableheadings[b]]<=0===table[1012][tableheadings[b]]<=0){} else if (table[1006][tableheadings[b]]>=0===table[1007][tableheadings[b]]>=0&&table[1006][tableheadings[b]]>=0===table[1008][tableheadings[b]]>=0&&table[1006][tableheadings[b]]>=0===table[1009][tableheadings[b]]>=0&&table[1006][tableheadings[b]]>=0===table[1012][tableheadings[b]]>=0){} else {terspoz.push(tableheadings[b])}
         }
 
-        alert(terspoz)
+        
 
         console.log(table)
 
