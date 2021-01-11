@@ -654,9 +654,9 @@ selectedFile.onchange = function(){
         }
 
         if (terspoz.length === 0) {
-            document.getElementById("terspozspan").innerHTML = "LP'lerde terste kalan pozisyon bulunmamaktadır"} 
+            document.getElementById("terspozspan").innerHTML = "REF1000"} 
         else {
-            document.getElementById("terspozspan").innerHTML = "Terste kalan pozisyonlar:" + terspoz}
+            document.getElementById("terspozspan").innerHTML = "REF1001:" + terspoz}
 
 
 
