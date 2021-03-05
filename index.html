@@ -12,6 +12,15 @@
         <title>Crosscheck</title>
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
         <style>
             * {
                 box-sizing: border-box;
@@ -135,6 +144,17 @@
                 margin: 90px;
             }
 
+            #button {
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+
+            
+
+            
+
+            
+
             
         </style>
     </head>
@@ -142,8 +162,15 @@
         
 
         <header>
-            <ul id="button"> 
-                <li onclick="bookButton()" id="li5" style="display: none;">Book</li>
+            <ul id="button">
+                <div style="width:30px" class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Other Tools
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Book Calculation Tool</a></li>
+                      <li><a href="https://ozanyil1.github.io/plrt">Profit Loss Reporting Tool</a></li>
+                    </ul>
+                </div>
             </ul>
             <nav>
                 <ul id="buttons">

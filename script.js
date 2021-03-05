@@ -17,7 +17,8 @@ selectedFile.onchange = function(){
   document.getElementById("li2").style.display = "inline-block";
   document.getElementById("li3").style.display = "inline-block";
   document.getElementById("li4").style.display = "inline-block";
-  document.getElementById("li5").style.display = "inline-block";
+  //document.getElementById("li5").style.display = "block";
+  //document.getElementById("li6").style.display = "block";
   
 
   if(vilnius){}else {document.getElementById("ozet").style.display = "none";}
@@ -654,7 +655,7 @@ selectedFile.onchange = function(){
       }
 
       if (terspoz.length === 0) {
-          document.getElementById("terspozspan").innerHTML = "LP'lerdee terste kalmış pozisyon bulunmamaktadır."} 
+          document.getElementById("terspozspan").innerHTML = "LP'lerde terste kalmış pozisyon bulunmamaktadır."} 
       else {
           document.getElementById("terspozspan").innerHTML = "LP'lerde terste kalan pozisyonlar:" + terspoz}
 
@@ -684,7 +685,7 @@ selectedFile.onchange = function(){
 window.alert("Test aşamasındadır. Lütfen sonuçları manuel kontrol ediniz")
 let weburl = window.location.href
 let vilnius = weburl.charAt(15) === "1" && weburl.charAt(24) === "i";
-alert(vilnius)
+
 
 function ftdButton() {
   if (vilnius)
@@ -721,6 +722,8 @@ function bookButton() {
   document.getElementById("booklist").style.display = "block";
   document.getElementById("booklist").scrollIntoView({behavior:"smooth",block:"center"})}
 }
+
+
 
 function calculate() {
   const reader = new FileReader();
