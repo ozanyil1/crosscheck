@@ -12,7 +12,7 @@ const selectedFile = document.getElementById('avatar');
 
 selectedFile.onchange = function(){
   document.getElementById("ozet").style.display = "block";
-  document.getElementById("h1").style.display = "none";
+  document.getElementById("dosyasec").style.display = "none";
   document.getElementById("li1").style.display = "none";
   document.getElementById("li2").style.display = "inline-block";
   document.getElementById("li3").style.display = "inline-block";
@@ -682,7 +682,7 @@ selectedFile.onchange = function(){
   
 }
 
-window.alert("Test aşamasındadır. Lütfen sonuçları manuel kontrol ediniz")
+//window.alert("Test aşamasındadır. Lütfen sonuçları manuel kontrol ediniz")
 let weburl = window.location.href
 let vilnius = weburl.charAt(15) === "1" && weburl.charAt(24) === "i";
 
