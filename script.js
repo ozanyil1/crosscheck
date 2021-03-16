@@ -87,7 +87,7 @@ selectedFile.onchange = function(){
       //burası headingsleri ve natromus yapıyor
       for (i=0;i<Object.keys(table).length;i++){
           
-          if(butunhesaplar[i]>6999&&butunhesaplar[i]<8000){natromus.push(butunhesaplar[i])
+          if(butunhesaplar[i]>6999&&butunhesaplar[i]<7095){natromus.push(butunhesaplar[i])
 
           }
           let symbols = Object.keys(table[Object.keys(table)[i]]);
